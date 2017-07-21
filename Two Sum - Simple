@@ -15,8 +15,9 @@ public:
             }
         }
     }
-
+// The hash map is the learning point
         return result;
     
     }
 };
+
