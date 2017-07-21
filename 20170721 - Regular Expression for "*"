@@ -1,0 +1,55 @@
+class Solution {
+public:
+bool CompareString(std::string s, std::string p, int i, int j) {
+	int slen = s.length();
+	int plen = p.length();
+	bool im = false;
+	bool jm = false;
+	bool comp;
+	while (i < slen && j < plen)
+	{
+		comp = false;
+		if (s[i] != p[j] || s[i] == '*' || p[j] == '*')
+		{
+			if (s[i] == '.' && im == true) { comp = CompareString(s, p, i - 1, j + 1); if (comp) return comp; }
+			if (p[j] == '.' && jm == true) { comp = CompareString(s, p, i + 1, j - 1); if (comp) return comp; }
+			if (s[i] == '.' || p[j] == '.') { i = i + 1; j = j + 1; continue; }
+			if (p[j] == '*') { j = j + 1; jm = true; continue; }
+			if (s[i] == '*') { i = i + 1; im = true; continue; }
+			if (jm == true) { i = i + 1; continue; }
+			if (im == true) { j = j + 1; continue; }
+			return false;
+		}
+		else if (jm == true && p[j] == s[i+1])
+		{
+			comp = CompareString(s, p, i + 1, j - 1);
+		}
+		else if (im == true && p[j+1] == s[i])
+		{
+			comp = CompareString(s, p, i - 1, j + 1);
+		}
+		if (comp) return comp;
+		jm = false;
+		im = false;
+		i++;
+		j++;
+	}
+	if (i == slen && j == plen) return (s[i - 1] == p[j - 1] || s[i - 1] == '.' || p[j - 1] == '.');
+	else if (i == slen && j != plen) { return (s[i - 1] == '*'); }
+	else if (j == plen && i != slen)
+	{
+		return (p[j - 1] == '*');
+	}
+
+	return false;
+
+}
+
+bool isMatch(std::string s, std::string p) {
+	int slen = s.length();
+	int plen = p.length();
+	if (slen == 0) return (plen == 0 || p[0] == '*');
+	if (plen == 0) return (slen == 0 || s[0] == '*');
+	return CompareString(s, p, 0, 0);
+}
+};
