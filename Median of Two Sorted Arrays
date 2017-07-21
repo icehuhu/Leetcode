@@ -1,0 +1,63 @@
+class Solution {
+public:
+std::vector<int> QuickSort(std::vector<int>& v, int left, int right){
+	int mid = v[left];
+	int i = left;
+	int j = right;
+	int k = i;
+		while (i<j)
+		{
+			while (v[i] <= mid && i < k)
+			{
+				i++;
+			}
+			if (v[i] > mid && i < k)
+			{
+				v[k] = v[i];
+				k = i;
+			}
+
+			while (v[j] >= mid && k < j)
+			{
+				j--;
+			}
+			if (v[j] < mid && k < j)
+			{
+				v[k] = v[j];
+				k = j;
+			}
+		}
+		v[k] = mid;
+		if (k - 1 > left) v = QuickSort(v, left, k - 1);
+		if (k + 1 < right) v = QuickSort(v, k + 1, right);
+		return v;
+}
+
+
+double findMedianSortedArrays(std::vector<int>& nums1, std::vector<int>& nums2) {
+	std::vector<int> total;
+	std::vector<int>::iterator iter;
+	std::vector<int> result;
+	total = nums1;
+	for (iter = nums2.begin(); iter != nums2.end(); iter++)
+	{ 
+		total.push_back(*iter);
+	}
+
+	result = QuickSort(total, 0, total.size()-1);
+
+	int result_len = result.size();
+	double result_num;
+	if (result_len % 2 == 0)
+	{
+		result_num = (double) (result[(int)result_len / 2] + result[(int)(result_len / 2) - 1]) / 2;
+	}
+	else
+	{
+		result_num = result[(int)result_len / 2];
+	}
+
+	return result_num;
+	
+}
+};
