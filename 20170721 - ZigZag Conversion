@@ -1,0 +1,36 @@
+class Solution {
+public:
+std::string convert(std::string s, int numRows) {
+	int slen = s.length();
+	int poslen;
+	std::string result;
+    if (slen == 1 || numRows == 1)
+	{
+		return s;
+	}
+	for (int i = 0; i < numRows; i++)
+	{
+//special case for head and tail
+		if (i == 0 || i == numRows - 1)
+		{
+			for (int j = i; j < slen; j = j + 2 * numRows - 2)
+			{
+				result.append(s.substr(j, 1));
+			}
+		}
+		else
+		{
+			poslen = numRows - 1 - i;
+			for (int j = i; j < slen;)
+			{
+				result.append(s.substr(j, 1));
+				j = j + 2 * poslen;
+				//reverse poslen
+				poslen = numRows - 1 - poslen;
+			}
+		}
+//normal case
+	}
+	return result;
+}
+};
