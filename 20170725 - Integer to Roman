@@ -1,0 +1,38 @@
+std::string intToRoman(int num) {
+	int i, j = 1;
+	std::string s1 = "IVX";
+	std::string s10 = "XLC";
+	std::string s100 = "CDM";
+	std::string s1000 = "M  ";
+	std::string stemp = "   ";
+
+	std::string result;
+	while (num > 0)
+	{
+		i = num % 10;
+		switch (j)
+		{
+			case 1: {stemp = s1; break; }
+			case 10: {stemp = s10; break; }
+			case 100: {stemp = s100; break; }
+			case 1000: {stemp = s1000; break; }
+		}
+		switch (i)
+		{
+			case 1: {result.insert(0, stemp.substr(0, 1));break;}
+			case 2: {result.insert(0, stemp.substr(0, 1) + stemp.substr(0, 1));break;}
+			case 3:	{result.insert(0, stemp.substr(0, 1) + stemp.substr(0, 1) + stemp.substr(0, 1)); break;}
+			case 4:	{result.insert(0, stemp.substr(0, 1) + stemp.substr(1, 1));break;}
+			case 5:	{result.insert(0, stemp.substr(1, 1)); break;}
+			case 6: {result.insert(0, stemp.substr(1, 1) + stemp.substr(0, 1)); break; }
+			case 7: {result.insert(0, stemp.substr(1, 1) + stemp.substr(0, 1) + stemp.substr(0, 1)); break; }
+			case 8: {result.insert(0, stemp.substr(1, 1) + stemp.substr(0, 1) + stemp.substr(0, 1) + stemp.substr(0, 1)); break; }
+			case 9: {result.insert(0, stemp.substr(0, 1) + stemp.substr(2, 1)); break; }
+			default:
+			break;
+		}
+		j = j * 10;
+		num = num / 10;
+	}
+	return result;
+}
