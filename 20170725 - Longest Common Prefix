@@ -1,0 +1,27 @@
+class Solution {
+public:
+std::string findlongest(std::string a, std::string b) {
+	int alen = a.length();
+	int blen = b.length();
+	if (blen < alen) alen = blen;
+
+	int i;
+	for (i = 0; i < alen; i++)
+	{
+		if (a[i] != b[i]) break;
+	}
+	return a.substr(0, i);
+}
+
+std::string longestCommonPrefix(std::vector<std::string>& strs) {
+	int slen = strs.size();
+	std::string result;
+	if (slen == 0) return result;
+	result = strs[0];
+	for (int i = 1; i < slen; i++)
+	{
+		result = findlongest(result, strs[i]);
+	}
+	return result;
+}
+};
