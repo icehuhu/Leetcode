@@ -1,0 +1,25 @@
+std::unordered_map<char, char> map = { {'[',']'},{'{','}'},{'(',')'} };
+
+bool isValid(std::string s) {
+	std::vector<char> v;
+	std::vector<char>::iterator iter;
+	for (int i = 0;i < s.length();i++)
+	{
+		if (map.count(s[i]) > 0)
+		{
+			v.push_back(s[i]);
+		}
+		else
+		{
+			if (v.size() == 0) return false;
+			iter = v.end() - 1;
+			if (s[i] == map[*iter])
+			{
+				v.pop_back();
+			}
+			else return false;
+		}
+	}
+	if (v.size() == 0) return true;
+	else return false;
+}
