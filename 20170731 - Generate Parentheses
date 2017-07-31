@@ -1,0 +1,25 @@
+class Solution {
+public:
+ std::string sample = "()";
+ 
+ std::vector<std::string> result;
+ bool childGeneratePare(int n, int i, std::string r)
+ {
+	 r.insert(i, sample);
+	 if (n == 1) { result.push_back(r); return true; }
+	 i = i + 1;
+	 while (i <= r.length())
+	 {
+		 childGeneratePare(n - 1, i, r);
+		 i++;
+
+	 }
+	 return true;
+ }
+
+ std::vector<std::string> generateParenthesis(int n) {
+	 std::string r1;
+	 childGeneratePare(n, 0,r1);
+	 return result;
+ }
+};
